@@ -6,6 +6,7 @@ import com.eazybytes.accounts.dto.ResponseDto;
 import com.eazybytes.accounts.entity.Accounts;
 import com.eazybytes.accounts.repository.AccountsRepository;
 import com.eazybytes.accounts.service.IAccountsService;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,15 +17,15 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path="/api", produces = {MediaType.APPLICATION_JSON_VALUE})
-@AllArgsConstructor
 @Validated
+@AllArgsConstructor
 public class AccountsController {
 
     IAccountsService iAccountsService;
     AccountsRepository accountsRepository;
 
     @PostMapping(path="/create")
-    public ResponseEntity<ResponseDto> createAccount(@RequestBody CustomerDto customerDto)
+    public ResponseEntity<ResponseDto> createAccount(@Valid @RequestBody CustomerDto customerDto)
     {
         iAccountsService.createAccount(customerDto);
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -40,7 +41,7 @@ public class AccountsController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<ResponseDto> updateAccount(@RequestBody CustomerDto customerDto) {
+    public ResponseEntity<ResponseDto> updateAccount(@Valid @RequestBody CustomerDto customerDto) {
         boolean isUpdated = iAccountsService.updateAccount(customerDto);
         if(isUpdated){
             return ResponseEntity.status(HttpStatus.OK)
@@ -54,7 +55,8 @@ public class AccountsController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<ResponseDto> deleteAcccount(@RequestParam String mobileNumber) {
+    public ResponseEntity<ResponseDto> deleteAcccount(@RequestParam
+                                                          @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits") String mobileNumber) {
         boolean isDeleted = iAccountsService.deleteAccount(mobileNumber);
         if(isDeleted){
             return ResponseEntity.status(HttpStatus.OK)
