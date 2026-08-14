@@ -15,23 +15,23 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners(AuditingEntityListener.class)//Lecture 25 - update audit columns using SpringData JPA Auditing
 @Getter @Setter @ToString
 public class BaseEntity {
 
-    @CreatedDate
+    @CreatedDate //used for auditing purpose to store the created date of the entity
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    @CreatedBy
+    @CreatedBy //used for auditing purpose to store the created by of the entity
     @Column(updatable = false)
     private String createdBy;
 
-    @LastModifiedDate
+    @LastModifiedDate //used for auditing purpose to store the last modified date of the entity
     @Column(insertable = false)
     private LocalDateTime updatedAt;
 
-    @LastModifiedBy
+    @LastModifiedBy //used for auditing purpose to store the last modified by of the entity
     @Column(insertable = false)
     private String updatedBy;
 }

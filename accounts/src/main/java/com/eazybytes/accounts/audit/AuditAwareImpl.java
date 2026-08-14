@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+// Lecture 25 - update audit columns using SpringData JPA Auditing
 @Component("auditAwareImpl")
 public class AuditAwareImpl implements AuditorAware<String> {
 
