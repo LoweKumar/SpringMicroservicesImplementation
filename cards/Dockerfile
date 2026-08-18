@@ -10,4 +10,4 @@ LABEL "org.opencontainers.image.authors"="eazybytes.com"
 COPY target/cards-0.0.1-SNAPSHOT.jar cards-0.0.1-SNAPSHOT.jar
 
 # execute the application
-ENTRYPOINT ["java", "-jar", "accounts-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "cards-0.0.1-SNAPSHOT.jar"]
